@@ -1,0 +1,554 @@
+type Bookmarks {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String
+  post: Post
+}
+
+input BookmarksInput {
+  name: String
+  post: ID
+}
+
+type Category {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String
+  posts(sort: String, limit: Int, start: Int, where: JSON): [Post]
+}
+
+input CategoryInput {
+  name: String
+  posts: [ID]
+}
+
+type Comments {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String
+  text: String
+  post: Post
+}
+
+input CommentsInput {
+  name: String
+  text: String
+  post: ID
+}
+
+input createBookmarksInput {
+  data: BookmarksInput
+}
+
+type createBookmarksPayload {
+  bookmark: Bookmarks
+}
+
+input createCategoryInput {
+  data: CategoryInput
+}
+
+type createCategoryPayload {
+  category: Category
+}
+
+input createCommentsInput {
+  data: CommentsInput
+}
+
+type createCommentsPayload {
+  comment: Comments
+}
+
+input createPostInput {
+  data: PostInput
+}
+
+type createPostPayload {
+  post: Post
+}
+
+input createRoleInput {
+  data: RoleInput
+}
+
+type createRolePayload {
+  role: UsersPermissionsRole
+}
+
+input createStatisticInput {
+  data: StatisticInput
+}
+
+type createStatisticPayload {
+  statistic: Statistic
+}
+
+input createTagsInput {
+  data: TagsInput
+}
+
+type createTagsPayload {
+  tag: Tags
+}
+
+input createUserInput {
+  data: UserInput
+}
+
+type createUserPayload {
+  user: UsersPermissionsUser
+}
+
+"""
+The `DateTime` scalar represents a date and time following the ISO 8601 standard
+"""
+scalar DateTime
+
+input deleteBookmarksInput {
+  where: InputID
+}
+
+type deleteBookmarksPayload {
+  bookmark: Bookmarks
+}
+
+input deleteCategoryInput {
+  where: InputID
+}
+
+type deleteCategoryPayload {
+  category: Category
+}
+
+input deleteCommentsInput {
+  where: InputID
+}
+
+type deleteCommentsPayload {
+  comment: Comments
+}
+
+input deletePostInput {
+  where: InputID
+}
+
+type deletePostPayload {
+  post: Post
+}
+
+input deleteRoleInput {
+  where: InputID
+}
+
+type deleteRolePayload {
+  role: UsersPermissionsRole
+}
+
+input deleteStatisticInput {
+  where: InputID
+}
+
+type deleteStatisticPayload {
+  statistic: Statistic
+}
+
+input deleteTagsInput {
+  where: InputID
+}
+
+type deleteTagsPayload {
+  tag: Tags
+}
+
+input deleteUserInput {
+  where: InputID
+}
+
+type deleteUserPayload {
+  user: UsersPermissionsUser
+}
+
+input editBookmarksInput {
+  name: String
+  post: ID
+}
+
+input editCategoryInput {
+  name: String
+  posts: [ID]
+}
+
+input editCommentsInput {
+  name: String
+  text: String
+  post: ID
+}
+
+input editFileInput {
+  name: String
+  hash: String
+  sha256: String
+  ext: String
+  mime: String
+  size: String
+  url: String
+  provider: String
+  public_id: String
+  related: [ID]
+}
+
+input editPostInput {
+  title: String
+  slug: String
+  description: String
+  image: ID
+  content: String
+  autor: String
+  status: Boolean
+  statistic: ID
+  category: ID
+  tags: [ID]
+  comments: [ID]
+  bookmarks: ID
+}
+
+input editRoleInput {
+  name: String
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
+}
+
+input editStatisticInput {
+  likes: Int
+  views: Int
+  post: ID
+}
+
+input editTagsInput {
+  name: String
+  posts: [ID]
+}
+
+input editUserInput {
+  username: String
+  email: String
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+}
+
+input FileInput {
+  name: String!
+  hash: String!
+  sha256: String
+  ext: String
+  mime: String!
+  size: String!
+  url: String!
+  provider: String!
+  public_id: String
+  related: [ID]
+}
+
+input InputID {
+  id: ID!
+}
+
+scalar JSON
+
+"""The `Long` scalar type represents 52-bit integers"""
+scalar Long
+
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Bookmarks | createBookmarksPayload | updateBookmarksPayload | deleteBookmarksPayload | Category | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Comments | createCommentsPayload | updateCommentsPayload | deleteCommentsPayload | Post | createPostPayload | updatePostPayload | deletePostPayload | Statistic | createStatisticPayload | updateStatisticPayload | deleteStatisticPayload | Tags | createTagsPayload | updateTagsPayload | deleteTagsPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+
+type Mutation {
+  createBookmarks(input: createBookmarksInput): createBookmarksPayload
+  updateBookmarks(input: updateBookmarksInput): updateBookmarksPayload
+  deleteBookmarks(input: deleteBookmarksInput): deleteBookmarksPayload
+  createCategory(input: createCategoryInput): createCategoryPayload
+  updateCategory(input: updateCategoryInput): updateCategoryPayload
+  deleteCategory(input: deleteCategoryInput): deleteCategoryPayload
+  createComments(input: createCommentsInput): createCommentsPayload
+  updateComments(input: updateCommentsInput): updateCommentsPayload
+  deleteComments(input: deleteCommentsInput): deleteCommentsPayload
+  createPost(input: createPostInput): createPostPayload
+  updatePost(input: updatePostInput): updatePostPayload
+  deletePost(input: deletePostInput): deletePostPayload
+  createStatistic(input: createStatisticInput): createStatisticPayload
+  updateStatistic(input: updateStatisticInput): updateStatisticPayload
+  deleteStatistic(input: deleteStatisticInput): deleteStatisticPayload
+  createTags(input: createTagsInput): createTagsPayload
+  updateTags(input: updateTagsInput): updateTagsPayload
+  deleteTags(input: deleteTagsInput): deleteTagsPayload
+
+  """Create a new role"""
+  createRole(input: createRoleInput): createRolePayload
+
+  """Update an existing role"""
+  updateRole(input: updateRoleInput): updateRolePayload
+
+  """Delete an existing role"""
+  deleteRole(input: deleteRoleInput): deleteRolePayload
+
+  """Create a new user"""
+  createUser(input: createUserInput): createUserPayload
+
+  """Update an existing user"""
+  updateUser(input: updateUserInput): updateUserPayload
+
+  """Delete an existing user"""
+  deleteUser(input: deleteUserInput): deleteUserPayload
+  upload(refId: ID, ref: String, source: String, file: Upload!): UploadFile!
+}
+
+type Post {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: String
+  slug: String!
+  description: String
+  image: UploadFile
+  content: String
+  autor: String
+  status: Boolean
+  statistic: Statistic
+  category: Category
+  bookmarks: Bookmarks
+  tags(sort: String, limit: Int, start: Int, where: JSON): [Tags]
+  comments(sort: String, limit: Int, start: Int, where: JSON): [Comments]
+}
+
+input PostInput {
+  title: String
+  slug: String!
+  description: String
+  image: ID
+  content: String
+  autor: String
+  status: Boolean
+  statistic: ID
+  category: ID
+  tags: [ID]
+  comments: [ID]
+  bookmarks: ID
+}
+
+type Query {
+  bookmark(id: ID!): Bookmarks
+  bookmarks(sort: String, limit: Int, start: Int, where: JSON): [Bookmarks]
+  category(id: ID!): Category
+  categories(sort: String, limit: Int, start: Int, where: JSON): [Category]
+  comment(id: ID!): Comments
+  comments(sort: String, limit: Int, start: Int, where: JSON): [Comments]
+  post(id: ID!): Post
+  posts(sort: String, limit: Int, start: Int, where: JSON): [Post]
+  statistic(id: ID!): Statistic
+  statistics(sort: String, limit: Int, start: Int, where: JSON): [Statistic]
+  tag(id: ID!): Tags
+  tags(sort: String, limit: Int, start: Int, where: JSON): [Tags]
+  files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
+  role(id: ID!): UsersPermissionsRole
+
+  """
+  Retrieve all the existing roles. You can't apply filters on this query.
+  """
+  roles(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsRole]
+  user(id: ID!): UsersPermissionsUser
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+  me: UsersPermissionsMe
+}
+
+input RoleInput {
+  name: String!
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
+}
+
+type Statistic {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  likes: Int
+  views: Int
+  post: Post
+}
+
+input StatisticInput {
+  likes: Int
+  views: Int
+  post: ID
+}
+
+type Tags {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String
+  posts(sort: String, limit: Int, start: Int, where: JSON): [Post]
+}
+
+input TagsInput {
+  name: String
+  posts: [ID]
+}
+
+input updateBookmarksInput {
+  where: InputID
+  data: editBookmarksInput
+}
+
+type updateBookmarksPayload {
+  bookmark: Bookmarks
+}
+
+input updateCategoryInput {
+  where: InputID
+  data: editCategoryInput
+}
+
+type updateCategoryPayload {
+  category: Category
+}
+
+input updateCommentsInput {
+  where: InputID
+  data: editCommentsInput
+}
+
+type updateCommentsPayload {
+  comment: Comments
+}
+
+input updatePostInput {
+  where: InputID
+  data: editPostInput
+}
+
+type updatePostPayload {
+  post: Post
+}
+
+input updateRoleInput {
+  where: InputID
+  data: editRoleInput
+}
+
+type updateRolePayload {
+  role: UsersPermissionsRole
+}
+
+input updateStatisticInput {
+  where: InputID
+  data: editStatisticInput
+}
+
+type updateStatisticPayload {
+  statistic: Statistic
+}
+
+input updateTagsInput {
+  where: InputID
+  data: editTagsInput
+}
+
+type updateTagsPayload {
+  tag: Tags
+}
+
+input updateUserInput {
+  where: InputID
+  data: editUserInput
+}
+
+type updateUserPayload {
+  user: UsersPermissionsUser
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+type UploadFile {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String!
+  hash: String!
+  sha256: String
+  ext: String
+  mime: String!
+  size: String!
+  url: String!
+  provider: String!
+  public_id: String
+  related(sort: String, limit: Int, start: Int, where: JSON): [Morph]
+}
+
+input UserInput {
+  username: String!
+  email: String!
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+}
+
+type UsersPermissionsMe {
+  id: ID!
+  username: String!
+  email: String!
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsMeRole
+}
+
+type UsersPermissionsMeRole {
+  id: ID!
+  name: String!
+  description: String
+  type: String
+}
+
+type UsersPermissionsPermission {
+  id: ID!
+  type: String!
+  controller: String!
+  action: String!
+  enabled: Boolean!
+  policy: String
+  role: UsersPermissionsRole
+}
+
+type UsersPermissionsRole {
+  id: ID!
+  name: String!
+  description: String
+  type: String
+  permissions(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsPermission]
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+}
+
+type UsersPermissionsUser {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  username: String!
+  email: String!
+  provider: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsRole
+}

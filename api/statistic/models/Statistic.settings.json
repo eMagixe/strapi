@@ -1,0 +1,25 @@
+{
+  "connection": "default",
+  "collectionName": "statistics",
+  "info": {
+    "name": "statistic",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "likes": {
+      "type": "integer"
+    },
+    "views": {
+      "type": "integer"
+    },
+    "post": {
+      "model": "post",
+      "via": "statistic"
+    }
+  }
+}
